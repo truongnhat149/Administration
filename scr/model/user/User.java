@@ -1,32 +1,23 @@
 package model.user;
 
-
 public class User {
-    private int userID;
+    private String userID;
     private String userName;
     private String password;
-    private Role role;
+    private String decentralization;
 
-    public User(int userID, String userName, String password, Role role) {
+    public User(String userID, String userName, String password, String decentralization) {
         this.userID = userID;
         this.userName = userName;
         this.password = password;
-        this.role = role;
+        this.decentralization = decentralization;
     }
 
-    public User(String raw) {
-        String[] strings = raw.split(",");
-        this.userID = Integer.parseInt(strings[0]);
-        this.userName = strings[1];
-        this.password = strings[2];
-        this.role = Role.fromValue(strings[0]);
-    }
-
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 
@@ -46,21 +37,12 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    public String getDecentralization() {
+        return decentralization;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setDecentralization(String decentralization) {
+        this.decentralization = decentralization;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userID=" + userID +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                '}';
-    }
 }
