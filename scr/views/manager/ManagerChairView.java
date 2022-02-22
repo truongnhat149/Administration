@@ -1,5 +1,6 @@
 package views.manager;
 import views.Menu;
+import views.sort.MenuSort;
 
 import java.util.Scanner;
 
@@ -26,10 +27,14 @@ public class ManagerChairView {
                         break;
                     case 4:
                         chairView.show();
-                        ManagerChairView.create();
+                        MenuSort.option();
+//                        ManagerChairView.create();
                         break;
                     case 5:
                         chairView.remove();
+                        break;
+                    case 6:
+                        Menu.writespace();
                         break;
                     case 9:
                         Menu.startMenu();

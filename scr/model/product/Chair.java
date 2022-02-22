@@ -1,13 +1,17 @@
 package model.product;
 
-public class Chair {
+import java.util.Comparator;
+
+public class Chair implements Comparator<Chair> {
     private long productID;
     private String name;
     private double price;
     private int quantity;
     private String providerName;
 
-    public Chair() {}
+    public Chair() {
+    }
+
     public Chair(long productID, String name, double price,
                  int quantity, String providerName) {
         this.productID = productID;
@@ -67,4 +71,10 @@ public class Chair {
                 ", provideName='" + providerName + '\'' +
                 '}';
     }
+
+    @Override
+    public int compare(Chair o1, Chair o2) {
+        return (int) (o1.getProductID() - o2.getProductID());
+    }
+
 }

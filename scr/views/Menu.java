@@ -23,6 +23,7 @@ public class Menu {
         System.out.println("||                                                    ||");
         System.out.println("========================================================");
         System.out.print("Chọn chức năng \n=> \t");
+
     }
 
     public static void orderMenu() {
@@ -46,6 +47,7 @@ public class Menu {
         System.out.println("||        3. Tìm kiếm sản phẩm                      ||");
         System.out.println("||        4. Hiển thị sản phẩm                      ||");
         System.out.println("||        5. Xóa sản phẩm                           ||");
+        System.out.println("||        6. Làm sạch giao diện                     ||");
         System.out.println("||                                                  ||");
         System.out.println("||        9. Quay về menu chính                     ||");
         System.out.println("||                            0. Thoát chương trình ||");
@@ -118,5 +120,11 @@ public class Menu {
         System.out.println("*                                                     *");
         System.out.println("*******************************************************");
         System.out.printf("=> \t");
+    }
+    public static void writespace() {
+        for (int i = 0; i < 30; i++) {
+            System.out.println();
+        }
+        ManagerChairView.create();
     }
 }

@@ -9,10 +9,12 @@ import java.util.Scanner;
 
 public class SearchMenu {
     static Scanner scanner = new Scanner(System.in);
+    static ChairView chairView = new ChairView();
     static ChairService chairService = new ChairService();
     static DecimalFormat formater = new DecimalFormat("###,###,###" + "vnđ");
 
     public static void searchMenu() {
+        chairView.show();
         boolean isChoice = true;
         char choice = ' ';
         do {
@@ -74,7 +76,9 @@ public class SearchMenu {
             }
             showReturnSearch(count);
         } catch (Exception e) {
+            e.getStackTrace();
             System.out.println("Chưa hợp lệ... Mời nhập lại");
+            searchByQuantity();
         }
     }
 
@@ -88,7 +92,7 @@ public class SearchMenu {
             System.out.println("Kết quả :  '" + search + "' là : ");
             System.out.printf("%-10s %-30s %-18s %-10s %-10s", "Id", "Tên Sản Phẩm", "Giá: ", "Số lượng", "Nhà Sản Xuất\n");
             for (Chair chair : chairList) {
-                if (chair.getQuantity() == search) {
+                if (chair.getProductID() == search) {
                     count++;
                     System.out.printf("%-10s %-30s %-18s %-10s %-10s\n", chair.getProductID(), chair.getName(), formater.format(chair.getPrice()),
                             chair.getQuantity(), chair.getProvideName());
@@ -117,7 +121,6 @@ public class SearchMenu {
                         chair.getQuantity(), formater.format(chair.getPrice()), chair.getProvideName());
             }
         }
-
         showReturnSearch(count);
     }
 
@@ -125,7 +128,7 @@ public class SearchMenu {
         List<Chair> chairList = chairService.getItem();
         int count = 0;
         System.out.println();
-        System.out.print("Nhập tên sản phẩm cần tìm kiếm : ");
+        System.out.print("Nhập giá sản phẩm cần tìm kiếm : ");
         double search = Double.parseDouble(scanner.nextLine());
         System.out.println("Kết quả tìm kiếm của từ khóa '" + search + "' là : ");
         System.out.printf("%-8s %-20s %-8s %-20s %-20s \n", "ID", "TÊN SẢN PHẨM", "SỐ LƯỢNG", "GIÁ (VND)", "NHÀ SẢN XUẤT");
@@ -136,7 +139,6 @@ public class SearchMenu {
                         chair.getQuantity(), formater.format(chair.getPrice()), chair.getProvideName());
             }
         }
-
         showReturnSearch(count);
     }
 

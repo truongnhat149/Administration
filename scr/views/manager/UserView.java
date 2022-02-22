@@ -1,6 +1,4 @@
 package views.manager;
-
-
 import model.user.User;
 import services.UserService;
 import services.thread.Loading;
@@ -26,14 +24,13 @@ public class UserView extends Thread {
         try {
             boolean flag = true;
             do {
-                System.out.print("\tusername:\t");
+                System.out.print("\tusername :\t");
                 String username = scanner.nextLine();
                 System.out.print("\tpassword :\t");
                 String password = scanner.nextLine();
                 for (User user : userList) {
                     if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
                         Loading.loading();
-                        System.out.println();
                         Menu.startMenu();
                     } else {
                         System.out.println("Lỗi!!! Mời Nhập Lại");
@@ -45,20 +42,4 @@ public class UserView extends Thread {
             System.out.println("Không hợp lệ, mời nhập lại");
         }
     }
-//
-//    public static void main(String[] args) {
-//        Loading loading = new Loading();
-//        Thread t1 = new Thread() {
-//            public void run() {
-//                loading.loading();
-//            }
-//        };
-//        Thread t2 = new Thread() {
-//            public void run() {
-//                loading.loading();
-//            }
-//        };
-//        t1.start();
-//        t2.start();
-//    }
 }

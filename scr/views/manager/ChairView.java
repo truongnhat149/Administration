@@ -2,6 +2,7 @@ package views.manager;
 
 import model.product.Chair;
 import services.ChairService;
+import utils.Validation;
 import views.Menu;
 import views.manager.ManagerChairView;
 
@@ -24,25 +25,36 @@ public class ChairView {
             System.out.println("ID tồn tại, mời nhập lại");
             add();
         } else {
-            System.out.println("Nhập tên sản phẩm");
-            System.out.printf("=> \t ");
-            String name = scanner.nextLine();
+            System.out.print("Nhập tên sản phẩm\n=> \t");
+            String nameProduct = scanner.nextLine();
+            while (!Validation.isNameProductValid(nameProduct)) {
+                System.out.println("Tên sản phẩm phải bắt đầu bằng ghế (vd: Ghe Massage)");
+                nameProduct = scanner.nextLine();
+            }
             System.out.println("Nhập giá sản phẩm");
             System.out.printf("=> \t ");
-            double price = scanner.nextDouble();
+            double price;
+            do {
+                price  = Double.parseDouble(scanner.nextLine());
+                if (!(price > 10000000 && price < 1000000000)) {
+                    System.out.print("Lỗi Nhập Giá!!! Mời nhập lại \n Giá tiền phải nằm trong khoảng từ 10tr đến 1 tỷ\n => \t");
+                    price = Double.parseDouble(scanner.nextLine());
+                }
+            } while (!(price > 10000000 && price < 1000000000));
+
             System.out.print("Nhập số lượng (Giới hạn không quá 100)\n=> \t");
             int quantity;
             do {
                 quantity = scanner.nextInt();
-                if (!(quantity > 0 && quantity < 99)) {
+                if (!(quantity > 0 && quantity <= 99)) {
                     System.out.println("Số lượng không được quá 99");
                     System.out.print("=> \t ");
                 }
-            } while (!(quantity > 0 && quantity < 99));
+            } while (!(quantity > 0 && quantity <= 99));
             System.out.print("Nhập thông tin nhà sản xuất \n=> \t ");
             scanner.nextLine();
             String provider = scanner.nextLine();
-            Chair chair = new Chair(id, name, price, quantity, provider);
+            Chair chair = new Chair(id, nameProduct, price, quantity, provider);
             chairService.addItem(chair);
             System.out.println("Thêm thành công!!!");
         }
@@ -72,54 +84,62 @@ public class ChairView {
     public void update() {
         show();
         System.out.print("Nhập ID cần sửa\n=> \t ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        if (chairService.exists(id)) {
-            Menu.inputUpdate();
-            boolean is = true;
-            do {
-                int choice = Integer.parseInt(scanner.nextLine());
-                switch (choice) {
-                    case 1:
-                        inputPrice(id);
-                        break;
-                    case 2:
-                        inputQuantity(id);
-                        break;
-                    case 3:
-                        inputProvider(id);
-                        break;
-                    case 4:
-                        ManagerChairView.create();
-                        break;
-                    default:
-                        System.out.print("Chưa hợp lệ!! Mời Nhập Lại\n");
-                        is = false;
-                }
-            } while (!is);
-            boolean flag = true;
-            do {
-                System.out.print("Nhấn 'c' để tiếp tục cập nhật \nNhấn 'b' để quay lại \nNhấn 'e' để thoát... \n=> \t");
-                String chon = scanner.nextLine();
-                switch (chon) {
-                    case "c":
+        try {
+            int id = Integer.parseInt(scanner.nextLine());
+            if (chairService.exists(id)) {
+                Menu.inputUpdate();
+                boolean is = true;
+                do {
+                    try {
+                        int choice = Integer.parseInt(scanner.nextLine());
+                        switch (choice) {
+                            case 1:
+                                inputPrice(id);
+                                break;
+                            case 2:
+                                inputQuantity(id);
+                                break;
+                            case 3:
+                                inputProvider(id);
+                                break;
+                            case 4:
+                                ManagerChairView.create();
+                                break;
+                            default:
+                                System.out.print("Chưa hợp lệ!! Mời Nhập Lại\n");
+                                is = false;
+                        }
+                    } catch (Exception e) {
+                        // Nếu gặp lỗi! Cho nhập lại
                         update();
-                        break;
-                    case "b":
-                        ManagerChairView.create();
-                        break;
-                    case "e":
-                        Menu.exit();
-                        System.exit(0);
-                        break;
-                    default:
-                        System.out.println("Mời Nhập Lại");
-                        flag = false;
-                }
-            } while (!flag);
-        } else {
-            System.out.println("Mời Nhập Lại");
-            update();
+                    }
+                } while (!is);
+                boolean flag = true;
+                do {
+                    System.out.print("Nhấn 'c' để tiếp tục cập nhật \nNhấn 'b' để quay lại \nNhấn 'e' để thoát... \n=> \t");
+                    String chon = scanner.nextLine();
+                    switch (chon) {
+                        case "c":
+                            update();
+                            break;
+                        case "b":
+                            ManagerChairView.create();
+                            break;
+                        case "e":
+                            Menu.exit();
+                            System.exit(0);
+                            break;
+                        default:
+                            System.out.println("Mời Nhập Lại");
+                            flag = false;
+                    }
+                } while (!flag);
+            } else {
+                System.out.println("Mời Nhập Lại");
+                update();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -128,10 +148,10 @@ public class ChairView {
         System.out.println("-----------------------------------------" +
                 "DANH SÁCH SẢN PHẨM----------------------" +
                 "---------------------");
-        System.out.printf("%-10s %-30s %-18s %-10s %-10s", "Id", "Tên Sản Phẩm", "Giá: ", "Số lượng", "Nhà Sản Xuất");
+        System.out.printf("%-10s %-30s %-20s %-10s %-20s", "Id", "Tên Sản Phẩm", "Giá: ", "Số lượng", "Nhà Sản Xuất");
         System.out.println(" ");
         for (Chair chair : chairList) {
-            System.out.printf("%-10s %-30s %-18s %-10s %-10s\n", chair.getProductID(), chair.getName(), decimalFormat.format(chair.getPrice()),
+            System.out.printf("%-10s %-30s %-20s %-10s %-20s\n", chair.getProductID(), chair.getName(), decimalFormat.format(chair.getPrice()),
                     chair.getQuantity(), chair.getProvideName());
         }
         System.out.println("------------------------------------------------------------------------------------------------------\n");
