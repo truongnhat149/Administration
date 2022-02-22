@@ -1,23 +1,24 @@
 package model.user;
 
 public class User {
-    private String userID;
+    private int userID;
     private String userName;
     private String password;
-    private String decentralization;
+    private String role;
 
-    public User(String userID, String userName, String password, String decentralization) {
+    public User(){}
+    public User(int userID, String userName, String password, String role) {
         this.userID = userID;
         this.userName = userName;
         this.password = password;
-        this.decentralization = decentralization;
+        this.role = role;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
@@ -37,12 +38,12 @@ public class User {
         this.password = password;
     }
 
-    public String getDecentralization() {
-        return decentralization;
+    public String getRole() {
+        return role;
     }
 
-    public void setDecentralization(String decentralization) {
-        this.decentralization = decentralization;
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }

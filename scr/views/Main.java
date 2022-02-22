@@ -1,9 +1,8 @@
 package views;
-
-import views.Menu;
+import views.manager.UserView;
 
 public class Main {
     public static void main(String[] args) {
-    new Menu();
+    new UserView();
     }
 }

@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Menu {
     static Scanner scanner = new Scanner(System.in);
     public Menu() {
-        start();
+        startMenu();
     }
 
     public static void mainMenu() {
@@ -19,6 +19,7 @@ public class Menu {
         System.out.println("||                                                    ||");
         System.out.println("||                 1. Quản lí sản phẩm                ||");
         System.out.println("||                 2. Quản lí đơn hàng                ||");
+        System.out.println("||                                                    ||");
         System.out.println("||                                                    ||");
         System.out.println("========================================================");
         System.out.print("Chọn chức năng \n=> \t");
@@ -32,6 +33,7 @@ public class Menu {
         System.out.println("||               1. Tạo danh sách                    ||");
         System.out.println("||               2. Xem danh sách                    ||");
         System.out.println("||                                                   ||");
+        System.out.println("||                                  0. Quay lại      ||");
         System.out.println("-------------------------------------------------------");
     }
 
@@ -57,7 +59,7 @@ public class Menu {
         System.exit(0);
     }
 
-    public static void start() {
+    public  static void startMenu() {
         try {
             boolean flag = true;
             do {

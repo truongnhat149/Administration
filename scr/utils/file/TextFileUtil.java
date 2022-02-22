@@ -11,7 +11,6 @@ public class TextFileUtil {
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
-
     }
 
     public static String read(String filePath) {
@@ -23,6 +22,5 @@ public class TextFileUtil {
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
-
     }
 }

@@ -10,8 +10,6 @@ import java.util.List;
 
 public class ChairService implements IItemService {
     private static String path = "data/chair.json";
-    public ChairService() {
-    }
 
     @Override
     public List<Chair> getItem() {
@@ -45,12 +43,14 @@ public class ChairService implements IItemService {
     }
 
     @Override
-    public void remove(Chair chair) {
+    public void remove(long id) {
         List<Chair> chairs = getItem();
-        System.out.println((long) chairs.size());
-        System.out.println(chair);
-        chairs.remove(chair);
-        System.out.println((long) chairs.size());
+        for (int i = 0; i < chairs.size(); i++) {
+            if (chairs.get(i).getProductID() == id) {
+                chairs.remove(i);
+                break;
+            }
+        }
         String json = JacksonParser.INSTANCE.toJson(chairs);
         TextFileUtil.writeFile(json, path);
     }

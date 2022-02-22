@@ -8,8 +8,7 @@ public interface IItemService {
     List<Chair> getItem();
     void addItem(Chair chair);
     void update(Chair chair);
-    void remove(Chair chair);
+    void remove(long id);
     boolean exists(int id);
-
     Chair getChairByID(int id);
 }

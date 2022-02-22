@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class ChairView {
     private ChairService chairService = new ChairService();
     private Scanner scanner = new Scanner(System.in);
+    private DecimalFormat decimalFormat = new DecimalFormat("###,###,###" + " vnđ");
 
     public void add() {
         chairService.getItem();
@@ -38,12 +39,12 @@ public class ChairView {
                     System.out.print("=> \t ");
                 }
             } while (!(quantity > 0 && quantity < 99));
-                System.out.print("Nhập thông tin nhà sản xuất \n=> \t ");
-                scanner.nextLine();
-                String provider = scanner.nextLine();
-                Chair chair = new Chair(id, name, price, quantity, provider);
-                chairService.addItem(chair);
-                System.out.println("Thêm thành công!!!");
+            System.out.print("Nhập thông tin nhà sản xuất \n=> \t ");
+            scanner.nextLine();
+            String provider = scanner.nextLine();
+            Chair chair = new Chair(id, name, price, quantity, provider);
+            chairService.addItem(chair);
+            System.out.println("Thêm thành công!!!");
         }
         boolean flag = true;
         do {
@@ -73,7 +74,6 @@ public class ChairView {
         System.out.print("Nhập ID cần sửa\n=> \t ");
         int id = scanner.nextInt();
         scanner.nextLine();
-//        Chair chair = chairService.getChairByID(id);
         if (chairService.exists(id)) {
             Menu.inputUpdate();
             boolean is = true;
@@ -125,7 +125,6 @@ public class ChairView {
 
     public void show() {
         List<Chair> chairList = chairService.getItem();
-        DecimalFormat decimalFormat = new DecimalFormat("###,###,###" + " vnđ");
         System.out.println("-----------------------------------------" +
                 "DANH SÁCH SẢN PHẨM----------------------" +
                 "---------------------");
@@ -166,6 +165,7 @@ public class ChairView {
             }
         } while (!flag);
     }
+
     public void inputPrice(int id) {
         Chair chair = chairService.getChairByID(id);
         System.out.printf("Nhập giá \n=> \t");
@@ -174,6 +174,7 @@ public class ChairView {
         chairService.update(chair);
         System.out.println("Cập nhật thành công!!!");
     }
+
     public void inputQuantity(int id) {
         Chair chair = chairService.getChairByID(id);
         System.out.print("Nhập số lượng \n=> \t");
@@ -182,6 +183,7 @@ public class ChairView {
         chairService.update(chair);
         System.out.println("Cập nhật thành công!!!");
     }
+
     public void inputProvider(int id) {
         Chair chair = chairService.getChairByID(id);
         System.out.print("Nhập tên nhà sản xuất \n=> \t");
@@ -190,13 +192,13 @@ public class ChairView {
         chairService.update(chair);
         System.out.println("Cập nhật thành công!!!");
     }
+
     public void remove() {
         show();
         chairService.getItem();
         System.out.printf("Nhập id sản phẩm \n=> \t");
         int id = Integer.parseInt(scanner.nextLine());
         Chair chair = chairService.getChairByID(id);
-        System.out.println(chair);
         if (chair != null) {
             boolean check = true;
             Menu.removeConfirm();
@@ -204,7 +206,7 @@ public class ChairView {
             try {
                 switch (chon) {
                     case "y":
-                        chairService.remove(chair);
+                        chairService.remove(chair.getProductID());
                         System.out.println("Xóa thành công!!!");
                         do {
                             System.out.println("=====================================");

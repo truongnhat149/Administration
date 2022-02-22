@@ -1,4 +1,5 @@
 package views.manager;
+
 import model.order.Order;
 import model.order.OrderItem;
 import model.product.Chair;
@@ -22,6 +23,7 @@ public class OrderView {
     private IOderService oderService;
     private IOrderItemService orderItemService;
     Scanner scanner = new Scanner(System.in);
+    DecimalFormat format = new DecimalFormat("###,###,###" + " vnđ");
 
     public OrderView() {
         itemService = new ChairService();
@@ -132,15 +134,14 @@ public class OrderView {
     }
 
     public void showPaymentInfo(OrderItem orderItem, Order order) {
-        DecimalFormat format = new DecimalFormat("###,###,###"+" vnđ");
         try {
             System.out.println("-------------------------------------------------------------" +
-                    "HOÁ ĐƠN-------------------------------------------------------------------");
-            System.out.printf("|%-15s %-20s %-15s %-15s %-15s %-15s %-15s %-10s\n|",
-                    "Id", "OrderID", "ChairID", "Tên Sản phẩm", "Giá", "Địa chỉ", "Số lượng", "Tổng");
-            System.out.printf("%-15s %-20s %-15s %-15s %-15s %-15s %-15s %-10s\n|", order.getOrderID(), orderItem.getOrderID(),
-                    orderItem.getChairID(), orderItem.getChairName(), format.format(orderItem.getPrice()), order.getAddress(), orderItem.getQuantity(),
-                    format.format(orderItem.getTotal()));
+                    "HOÁ ĐƠN--------------------------------------------------------------------");
+            System.out.printf("|%-11s %-11s %-10s %-20s %-15s %-10s %-16s %-35s\n|",
+                    "Id", "OrderID", "ChairID", "Tên Sản phẩm", "Giá", "Số lượng", "Tổng ", "Địa chỉ");
+            System.out.printf("%-11s %-11s %-10s %-20s %-15s %-10s %-16s %-35s\n|", order.getOrderID(), orderItem.getOrderID(),
+                    orderItem.getChairID(), orderItem.getChairName(), format.format(orderItem.getPrice()), orderItem.getQuantity(),
+                    format.format(orderItem.getTotal()), order.getAddress());
             System.out.println("---------------------------------------------------------------------------------------------------------------------------------------");
 
             boolean flag = true;
@@ -173,20 +174,20 @@ public class OrderView {
         try {
             System.out.println("----------------------------------------------------------LIST ORDER--------------------------------------------------------------------");
             System.out.println("|                                                                                                                                      |");
-            System.out.printf("|%-12s %-15s %-15s %-20s %-15s %-20s %-8s %-15s\n|",
-                    "Id", "OrderID", "ChairID", "Tên Sản phẩm", "Giá", "Địa chỉ", "Số lượng", "     Tổng");
+            System.out.printf("|%-12s %-12s %-12s %-25s %-15s %-8s %-15s %-15s\n",
+                    "Id", "OrderID", "ChairID", "Tên Sản phẩm", "Giá", "Số lượng", "Tổng", "Địa chỉ");
             for (Order order : orderList) {
                 for (OrderItem orderItem : orderItems) {
-                    if(orderItem.getOrderID() == order.getOrderID()) {
+                    if (orderItem.getOrderID() == order.getOrderID()) {
                         newOI = orderItem;
                         break;
                     }
                 }
-                System.out.printf("%-12s %-15s %-15s %-20s %-15s %-20s %-13s %-15s\n|", order.getOrderID(), newOI.getOrderID(),
-                        newOI.getChairID(), newOI.getChairName(), newOI.getPrice(), order.getAddress(), newOI.getQuantity(),
-                        newOI.getTotal());
+                System.out.printf("|%-12s %-12s %-12s %-25s %-15s %-8s %-15s %-15s\n", order.getOrderID(), newOI.getOrderID(),
+                        newOI.getChairID(), newOI.getChairName(), format.format(newOI.getPrice()), newOI.getQuantity(),
+                        format.format(newOI.getTotal()), order.getAddress());
             }
-            System.out.println("                                                                                                                                      |");
+            System.out.println("|                                                                                                                                      |");
             System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
             boolean flag = true;
             do {

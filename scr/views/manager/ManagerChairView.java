@@ -32,7 +32,7 @@ public class ManagerChairView {
                         chairView.remove();
                         break;
                     case 9:
-                        Menu.start();
+                        Menu.startMenu();
                         break;
                     case 0:
                         Menu.exit();

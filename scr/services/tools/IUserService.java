@@ -1,7 +1,9 @@
 package services.tools;
 
 import model.user.User;
+import java.util.List;
 
 public interface IUserService {
-    void loginUser();
+    List<User> getUser();
+    User getUserByID(int id);
 }
